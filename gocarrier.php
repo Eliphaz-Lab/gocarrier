@@ -44,10 +44,10 @@ class gocarrier extends CarrierModule
     public function install()
     {
         $this->addCarrier();
-        return (parent::install() 
+
+        return parent::install() 
             && $this->registerHook('updateCarrier')
-            &&$this->registerHook('displayCarrierExtraContent')
-        );
+            &&$this->registerHook('displayCarrierExtraContent');
     }
 
     public function uninstall()
@@ -106,20 +106,20 @@ class gocarrier extends CarrierModule
         $zones = Zone::getZones();
 
         foreach ($zones as $zone) {
-            $carrier->addZone($zone);
+            $carrier->addZone($zone['id_zone']);
         }
     }
 
     protected function addGroups($carrier)
     {
-        $groups_ids = arrays();
+        $groups_ids = array();
 
         $groups = Group::getGroups(Context::getContext()->language->id);
         foreach ($groups as $group) {
             $groups_ids[] = $group['id_group'];
         }
 
-        $carrier->addGroups($groups_ids);
+        $carrier->setGroups($groups_ids);
     }
 
     protected function addRanges($carrier)
