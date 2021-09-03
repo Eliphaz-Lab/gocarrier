@@ -53,12 +53,12 @@ class gocarrier extends CarrierModule
     public function uninstall()
     {
         $carrier = new Carrier(
-            (int)Configuration::get('Go_CARRIER_ID')
+            (int)Configuration::get('GO_CARRIER_ID')
         );
 
-        $carrier->delete();
+        $carrier->deleted();
 
-        Configuration::deleteByName('Go_CARRIER_ID');
+        Configuration::deleteByName('GO_CARRIER_ID');
         return parent::uninstall();
     }
 
@@ -131,4 +131,17 @@ class gocarrier extends CarrierModule
         $range_price->add();
     }
 
+    public function hookUpdateCarrier($params)
+    {
+        $id_carrier_old = (int) $params['id_carrier'];
+        $id_carrier_new = (int) $params['carrier']->id;
+        if ($id_carrier_old === (int) Configuration::get('GO_CARRIER_ID')) {
+            Configuration::updateValue('GO_CARRIER_ID', $id_carrier_new);
+        }
+    }
+
+    public function hookDisplayCarrierExtraContent($params)
+    {
+        return $this->display(__FILE__, 'extra_carrier.tpl');
+    }
 }
