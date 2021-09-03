@@ -25,18 +25,18 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class Sbcarrier extends CarrierModule
+class gocarrier extends CarrierModule
 {
     public function __construct()
     {
-        $this->name = 'Sbcarrier';
-        $this->author = 'sb_code';
+        $this->name = 'gocarrier';
+        $this->author = 'artinux';
         $this->version = '1.0.0';
         $this->ps_versions_compliancy = ['min' => '1.7.7', 'max' => _PS_VERSION_];
 
         parent::__construct();
 
-        $this->displayName = $this->l('Sb Carrier');
+        $this->displayName = $this->l('Go Carrier');
         $this->description = $this->l('Just a carrier module');
     }
 
@@ -53,12 +53,12 @@ class Sbcarrier extends CarrierModule
     public function uninstall()
     {
         $carrier = new Carrier(
-            (int)Configuration::get('SB_CARRIER_ID')
+            (int)Configuration::get('Go_CARRIER_ID')
         );
 
         $carrier->delete();
 
-        Configuration::deleteByName('SB_CARRIER_ID');
+        Configuration::deleteByName('Go_CARRIER_ID');
         return parent::uninstall();
     }
 
@@ -76,7 +76,7 @@ class Sbcarrier extends CarrierModule
     {
         $result = false;
         $carrier = new Carrier();
-        $carrier->name = $this->l('Sb Carrier');
+        $carrier->name = $this->l('Go Carrier');
         $carrier->is_module = true;
         $carrier->active = 1;
         $carrier->range_behavior = 1;
@@ -91,7 +91,7 @@ class Sbcarrier extends CarrierModule
         }
 
         if($carrier->add() == true) {
-            Configuration::updateValue('SB_CARRIER_ID', (int)$carrier->id);
+            Configuration::updateValue('GO_CARRIER_ID', (int)$carrier->id);
 
             $result &= $this->addZones($carrier);
             $result &= $this->addGroups($carrier);
