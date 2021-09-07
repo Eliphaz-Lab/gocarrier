@@ -1,0 +1,16 @@
+{
+    "name": "yenux/gocarrier",
+    "description": "Carrier module",
+    "authors": [
+        {
+            "name": "yenux",
+            "email": "bouyesamuel@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Gocarrier\\": "src/"
+        }
+    },
+    "require": {}
+}
